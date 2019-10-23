@@ -3,10 +3,14 @@
 {% block body %}
 
 <div class="jumbotron text-center">
+
         <h3>YAZILIM BLOĞUNA HOŞGELDİN</h3>
         <P>Bu blogda yazılarınızı paylaşabilirsiniz</P>
 
-    </div>
-
+</div>
+<ul></ul>
+{% for i in numbers %}
+    <li>{{i}}</li>
+{% endfor %}
 
 {% endblock body %}
