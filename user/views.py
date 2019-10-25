@@ -1,8 +1,11 @@
 from django.shortcuts import render,redirect
-from .forms import RegisterForm
+from .forms import RegisterForm,LoginForm
 
 from django.contrib.auth.models import User
-from django.contrib.auth import login
+from django.contrib.auth import login,authenticate,logout
+from django.contrib import messages
+
+
 
 def register(request):
     form =RegisterForm(request.POST or None)
@@ -14,6 +17,7 @@ def register(request):
         newUser.set_password(password)
         newUser.save()
         login(request,newUser)
+        messages.success(request,"Başarıyla Kayıt Oldunuz....")
         return redirect("index")
     
     context={
@@ -23,7 +27,31 @@ def register(request):
     
     
 def loginUser(request):
-    return render(request,"login.html")
+
+    form=LoginForm(request.POST or None)
+    context={
+            "form":form
+        }
+
+
+    if form.is_valid():
+        username=form.cleaned_data.get("username")
+        password=form.cleaned_data.get("password")
+
+        user=authenticate(username=username,password=password)
+        if user is None:
+            messages.info(request,"Kullanıcı Adı veya Parola Hatalı")
+            return render(request,"login.html",context)
+
+        messages.success(request,"Başarıya Giriş Yaptınız")
+        login(request,user)
+        return redirect("index")
+
+
+    return render(request,"login.html",context)
 def logoutUser(request):
-    return render(request,"logout.html")
+    logout(request)
+    messages.success(request,"Çıkış Yapıldı")
+
+    return redirect("index")
     
