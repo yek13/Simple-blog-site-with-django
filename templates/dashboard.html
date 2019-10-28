@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+{% block body %}
+
+<div class="row">
+    
+        <h3>Kontrol Paneli</h3>
+        <hr>
+
+        <p> Hoşgeldiniz, {{request.user.username}} </p>
+        {% if articles%}
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">BAŞLIK</th>
+                <th scope="col">YAZAR</th>
+                <th scope="col">TARİH</th>
+                <th scope="col">GÜNCELLE</th>
+                <th scope="col">SİL</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for article in articles %}
+            <tr>
+                <th scope="row">{{article.id}}</th>
+                <td><a href="/articles/article/{{article.id}}">{{article.title}}</a></td>
+                <td>{{article.author.username}}</td>
+                <td>{{article.created_date}}</td>
+                <td><a href="/articles/update/{{article.id}}" class="btn btn-danger">GÜNCELLE</a></td>
+                <td><a href="/articles/delete/{{article.id}}" class="btn btn-danger">Sil</a></td>
+            </tr>
+            {% endfor %}
+  
+              
+            </tbody>
+          </table>
+        {% else %}
+        <div class="alert alert-danger">Henüz Makale Yayınlamamışsınız.</div>
+        {% endif %}
+        
+        <hr>
+        
+        <a class="btn btn-danger" href="/articles/addarticle">Makele Ekle</a>
+        
+        <hr>
+  </div>
+  
+{% endblock body %}

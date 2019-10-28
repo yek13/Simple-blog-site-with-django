@@ -8,9 +8,11 @@
         <P>Bu blogda yazılarınızı paylaşabilirsiniz</P>
 
 </div>
-<ul></ul>
-{% for i in numbers %}
-    <li>{{i}}</li>
-{% endfor %}
-
+<p>
+        {% if request.user.is_authenticated %}
+                Giriş Yapılmış, {{request.user.username}}
+        {% else %}
+                Giriş Yapılmamış
+        {% endif  %}
+</p>
 {% endblock body %}
