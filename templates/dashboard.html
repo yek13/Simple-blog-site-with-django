@@ -6,7 +6,7 @@
     
         <h3>Kontrol Paneli</h3>
         <hr>
-        {% if articles%}
+        {% if articless%}
         <table class="table">
             <thead>
               <tr>
@@ -19,7 +19,7 @@
               </tr>
             </thead>
             <tbody>
-            {% for article in articles %}
+            {% for article in articless %}
             <tr>
                 <th scope="row">{{article.id}}</th>
                 <td><a href="/articles/article/{{article.id}}">{{article.title}}</a></td>
@@ -34,7 +34,10 @@
             </tbody>
           </table>
         {% else %}
-        <div class="alert alert-danger">Henüz Makale Yayınlamamışsınız.</div>
+        <div class="alert alert-danger">
+        Henüz Makale Yayınlamamışsınız.
+        
+        </div>
         {% endif %}
         
         <hr>
